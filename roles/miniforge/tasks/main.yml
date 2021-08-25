@@ -1,0 +1,64 @@
+---
+- name: Check if miniforge exists
+  become: no
+  stat:
+    path: /opt/miniforge
+  register: stat_miniforge_result
+
+- name: Installl Miniforge
+  block:
+    - name: Download Miniforge
+      become: no
+      get_url:
+        url: "https://github.com/conda-forge/miniforge/releases/download/{{ conda_version }}-{{ miniforge_patch_number }}/{{ miniforge_python }}-{{ conda_version }}-{{ miniforge_patch_number }}-Linux-{{ miniforge_arch }}.sh"
+        dest: /tmp/install-miniforge.sh
+        checksum: "sha256:{{ miniforge_checksum }}"
+        timeout: 60
+        mode: 0550
+
+    - name: Create conda folder
+      file:
+        path: /opt/miniforge
+        state: directory
+        owner: "{{ ansible_user }}"
+
+    - name: Run the installer
+      become: no
+      command: /tmp/install-miniforge.sh -f -b -p /opt/miniforge
+
+    # - name: Remove the installer
+    #   file:
+    #     state: absent
+    #     path: /tmp/install-miniforge.sh
+
+    # - name: conda - read permission for all
+    #   file:
+    #     path: /opt/miniforge
+    #     mode: +r
+    #     recurse: yes
+
+    # - name: conda - execution permission for all
+    #   file:
+    #     path: /opt/miniforge/bin
+    #     mode: +x
+    #     recurse: yes
+
+    # - name: Add miniforge bin to path
+    #   become: True
+    #   shell: echo 'export PATH=/opt/miniforge/bin:$PATH' >> /etc/profile
+
+    - name: conda configuration
+      become: no
+      shell: echo "conda {{ conda_version }}" >> "/opt/miniforge/conda-meta/pinned" &&  /opt/miniforge/bin/conda config --system --set auto_update_conda false && /opt/miniforge/bin/conda config --system --set show_channel_urls true
+
+  when: not stat_miniforge_result.stat.exists
+
+- name: install packages
+  become: no
+  command: /opt/miniforge/bin/mamba install --quiet --yes {{item}}
+  with_items: "{{ default_packages + extra_packages }}"
+
+- name: install pip packages
+  become: no
+  command: /opt/miniforge/bin/pip install --quiet {{item}}
+  with_items: "{{ pip_packages }}"

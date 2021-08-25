@@ -1,0 +1,15 @@
+# https://github.com/conda-forge/miniforge/releases
+---
+- hosts: localhost
+  become: yes
+  vars:
+    conda_version: 4.10.3
+    miniforge_patch_number: 2
+    miniforge_arch: x86_64
+    miniforge_python: Mambaforge
+    miniforge_checksum: e4228930af7102de20019efdf45e4e9c056b6ae354cb2e344249e53a11f71175
+
+    extra_packages: ["happybase", "elasticsearch"]
+
+  roles:
+    - miniforge

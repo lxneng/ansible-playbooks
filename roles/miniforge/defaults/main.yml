@@ -1,0 +1,12 @@
+---
+conda_version: 4.10.1
+miniforge_patch_number: 5
+miniforge_arch: x86_64
+miniforge_python: Mambaforge
+miniforge_checksum: 069e151cae85ed4747721e938e7974aa00889a1ae87cff33ddbdde9530fc4c6d
+
+default_packages: ["pandas", "numpy", "scipy", "scikit-learn", "PyMySQL",
+"SQLAlchemy", "requests", "jupyterlab", "ansible", "jupyterlab", "s3fs",
+"seaborn", "matplotlib", "black", "poetry"]
+extra_packages: []
+pip_packages: []
