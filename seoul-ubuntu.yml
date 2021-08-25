@@ -1,0 +1,9 @@
+---
+- hosts: seoul
+  become: yes
+    docker_users:
+      - ubuntu
+
+  roles:
+    - common
+    - docker
