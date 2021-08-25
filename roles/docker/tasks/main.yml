@@ -1,0 +1,35 @@
+- name: Override ansible_distribution for Pop!_OS compatibility
+  set_fact: ansible_distribution='Ubuntu'
+  when: ansible_distribution == 'Pop!_OS'
+
+- debug:
+    msg: "ansible_distribution={{ ansible_distribution }}"
+
+- name: add apt repository key
+  apt_key:
+    url: 'https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg'
+    
+- name: add apt repository
+  apt_repository:
+    repo: 'deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release | lower }} stable'
+
+- name: Install Docker Engine
+  apt:
+    name: '{{item}}'
+  loop:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+
+- include_tasks: docker-users.yml
+  when: docker_users | length > 0
+
+- name: upload daemon.json to /etc/docker
+  template: src=daemon.json dest=/etc/docker/daemon.json
+  notify: restart docker
+
+- name: Install docker-compose
+  get_url: 
+    url : https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: 0755

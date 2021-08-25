@@ -1,0 +1,66 @@
+---
+- name: check if .oh-my-zsh exists
+  become: no
+  stat:
+    path: ~/.oh-my-zsh
+  register: stat_oh_my_zsh_result
+
+- name: Cloning oh-my-zsh
+  become: no
+  git:
+    repo=https://github.com/ohmyzsh/ohmyzsh.git
+    dest=~/.oh-my-zsh
+  when: not stat_oh_my_zsh_result.stat.exists
+
+- name: Cloning powerlevel10k theme
+  become: no
+  git:
+    repo=https://github.com/romkatv/powerlevel10k.git
+    dest=~/.oh-my-zsh/custom/themes/powerlevel10k
+    depth=1
+  when: not stat_oh_my_zsh_result.stat.exists
+
+- name: Create fonts directory
+  file:
+    path: /usr/share/fonts/TTF
+    mode: '0755'
+    state: directory
+  when: not stat_oh_my_zsh_result.stat.exists
+
+- name: Download powerlevel10k recommanded fonts
+  get_url:
+    url: "{{ item.url }}"
+    dest: "/usr/share/fonts/TTF/{{ item.name }}"
+    mode: '0644'
+  loop:
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf', name: 'MesloLGS-NF-Regular.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf', name: 'MesloLGS-NF-Bold.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf', name: 'MesloLGS-NF-Italic.ttf' }
+    - { url: 'https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf', name: 'MesloLGS-NF-Bold-Italic.ttf' }
+  when: not stat_oh_my_zsh_result.stat.exists
+
+- name: check if .dotfiles exists
+  become: no
+  stat:
+    path: ~/.dotfiles
+  register: stat_dotfiles_result
+
+- name: Cloning dotfiles
+  become: no
+  git:
+    repo=git@github.com:lxneng/dotfiles.git
+    dest=~/.dotfiles
+  when: not stat_dotfiles_result.stat.exists
+
+- name: bootstrap dotfiles
+  become: no
+  command: ~/.dotfiles/script/bootstrap
+  environment:
+    OVERWRITE_ALL: "true"
+  when: not stat_dotfiles_result.stat.exists
+
+- name: change user shell to zsh
+  user:
+    name: eric
+    shell: /bin/zsh
+

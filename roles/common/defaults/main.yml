@@ -1,0 +1,21 @@
+---
+default_pkgs:
+  - wget
+  - curl
+  - ca-certificates
+  - apt-transport-https
+  - software-properties-common
+  - cron
+  - htop
+  - nload
+  - iotop
+  - neofetch
+  - ripgrep
+  - vim
+  - rsync
+  - tmux
+  - python3-pip
+  - fzf
+
+extra_pkgs: []
+

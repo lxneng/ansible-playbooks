@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  become: yes
+  vars:
+    docker_users:
+      - eric
+    extra_pkgs:
+      - zsh
+      - git
+      - exa
+      - flameshot
+
+  roles:
+    - common
+    - docker
+    - ohmyzsh
+    - nvim

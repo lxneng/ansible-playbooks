@@ -1,0 +1,35 @@
+---
+- name: Check if nvim config exists
+  become: no
+  stat:
+    path: ~/.config/nvim
+  register: stat_nvim_config_result
+
+- name: Cloning nvim config
+  become: no
+  git:
+    repo=git@github.com:lxneng/nvim.git
+    dest=~/.config/nvim
+  when: not stat_nvim_config_result.stat.exists
+
+- name: Install nvim
+  apt:
+    name: '{{item}}'
+  loop:
+    - neovim
+
+- name: Install nvim python support
+  become: no
+  pip:
+    name: neovim
+
+- name: Check if installed nvim plugins
+  become: no
+  stat:
+    path: ~/.config/nvim/plugged
+  register: stat_nvim_plugged_result
+
+- name: Installing nvim plugins
+  become: no
+  command: nvim +PlugInstall +qa
+  when: not stat_nvim_plugged_result.stat.exists
