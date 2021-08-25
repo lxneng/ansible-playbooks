@@ -1,0 +1,6 @@
+seoul ansible_user=ubuntu
+tokyo ansible_user=eric
+localhost ansible_user=eric
+
+[all:vars]
+ansible_python_interpreter='/usr/bin/env python3'

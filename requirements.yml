@@ -1,0 +1,5 @@
+---
+roles:
+  # https://galaxy.ansible.com/gantsign/visual-studio-code
+  - name: gantsign.visual-studio-code
+    version: 6.6.0

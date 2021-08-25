@@ -1,0 +1,65 @@
+- hosts: localhost
+  roles:
+    - role: gantsign.visual-studio-code
+      users:
+        - username: "{{ ansible_user }}"
+          visual_studio_code_extensions:
+            - vscodevim.vim
+            - ms-python.python
+            - ms-python.vscode-pylance
+            - ms-toolsai.jupyter
+            - golang.go
+            - rust-lang.rust
+            - zbr.vscode-ansible
+            - scala-lang.scala
+            - octref.vetur
+
+            - rebornix.ruby
+            - wingrunr21.vscode-ruby
+            - castwide.solargraph
+            - kaiwood.endwise
+            - aliariff.vscode-erb-beautify
+            - rayhanw.erb-helpers
+
+            - redhat.vscode-yaml
+            - marp-team.marp-vscode
+            - aaron-bond.better-comments
+
+            - github.github-vscode-theme
+            - vscode-icons-team.vscode-icons
+
+            - mtxr.sqltools
+            - mtxr.sqltools-driver-pg
+            - mtxr.sqltools-driver-mysql
+
+          visual_studio_code_settings_overwrite: yes
+          visual_studio_code_settings:
+            {
+              "editor.fontSize": 16,
+              "editor.rulers": [80, 120],
+              "terminal.integrated.fontFamily": "MesloLGS NF",
+              "workbench.colorTheme": "GitHub Dark Dimmed",
+              "workbench.iconTheme": "vscode-icons",
+
+              "editor.formatOnSave": true,
+              "solargraph.autoformat": true,
+              "solargraph.diagnostics": true,
+              "solargraph.formatting": true,
+              "vim.disableExtension": true,
+
+              "python.formatting.provider": "black",
+              "python.formatting.blackArgs": ["--line-length=80"],
+              "python.sortImports.args": ["--profile", "black"],
+              "[python]":
+                {
+                  "editor.codeActionsOnSave":
+                    { "source.organizeImports": true },
+                },
+
+              "sqltools.format":
+                {
+                  "reservedWordCase": "upper",
+                  "language": "sql",
+                  "linesBetweenQueries": 2,
+                },
+            }
