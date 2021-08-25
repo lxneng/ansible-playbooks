@@ -1,0 +1,10 @@
+---
+- hosts: tokyo
+  become: yes
+  vars:
+    docker_users:
+      - eric
+
+  roles:
+    - common
+    - docker
