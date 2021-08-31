@@ -13,6 +13,7 @@
             - zbr.vscode-ansible
             - scala-lang.scala
             - octref.vetur
+            - karunamurti.tera
 
             - rebornix.ruby
             - wingrunr21.vscode-ruby
