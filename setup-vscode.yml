@@ -9,8 +9,7 @@
             - ms-python.vscode-pylance
             - ms-toolsai.jupyter
             - golang.go
-            - rust-lang.rust
-            - zbr.vscode-ansible
+            - matklad.rust-analyzer
             - scala-lang.scala
             - octref.vetur
             - karunamurti.tera
