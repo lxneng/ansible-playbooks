@@ -33,6 +33,7 @@
             - mtxr.sqltools-driver-mysql
 
             - formulahendry.auto-rename-tag
+            - pnp.polacode
 
           visual_studio_code_settings_overwrite: yes
           visual_studio_code_settings:
