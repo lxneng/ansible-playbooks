@@ -32,6 +32,8 @@
             - mtxr.sqltools-driver-pg
             - mtxr.sqltools-driver-mysql
 
+            - formulahendry.auto-rename-tag
+
           visual_studio_code_settings_overwrite: yes
           visual_studio_code_settings:
             {
