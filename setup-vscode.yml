@@ -41,6 +41,7 @@
             {
               "editor.fontSize": 16,
               "editor.rulers": [80, 120],
+              "editor.bracketPairColorization.enabled": true,
               "terminal.integrated.fontFamily": "MesloLGS NF",
               "workbench.colorTheme": "GitHub Dark Dimmed",
               "workbench.iconTheme": "vscode-icons",
