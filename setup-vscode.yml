@@ -35,6 +35,7 @@
 
             - formulahendry.auto-rename-tag
             - pnp.polacode
+            - mushan.vscode-paste-image
 
           visual_studio_code_settings_overwrite: yes
           visual_studio_code_settings:
@@ -51,6 +52,7 @@
               "solargraph.diagnostics": true,
               "solargraph.formatting": true,
               "vim.disableExtension": true,
+              "pasteImage.path": "${currentFileDir}/images",
 
               "python.formatting.provider": "black",
               "python.formatting.blackArgs": ["--line-length=80"],
