@@ -1,0 +1,52 @@
+---
+- debug:
+    msg: "ansible_distribution={{ ansible_distribution }}"
+
+- name: Check if letsencrypt issued
+  become: no
+  stat:
+    path: "/etc/letsencrypt/live/"
+  register: stat_letsencrypt_result
+
+- name: install certbot
+  pip:
+    name: certbot
+  when: not stat_letsencrypt_result.stat.exists
+
+- name: install certbot-dns-cloudflare
+  pip:
+    name: certbot-dns-cloudflare
+
+- name: upload nginx config
+  template: src=nginx.conf dest=/etc/nginx/sites-enabled/letsencrypt.conf
+  register: nginx_conf
+
+- name: create secrets directory if it does not exist
+  become: no
+  file:
+    path: ~/.secrets
+    state: directory
+    mode: 0755
+
+- name: copy cloudflare credentials
+  become: no
+  copy:
+    dest: ~/.secrets/cloudflare-credentials.ini
+    content: "dns_cloudflare_api_token = {{dns_cloudflare_api_token}}"
+
+- name: issue certificates
+  command: certbot certonly --email {{letsencrypt_email}} --agree-tos --noninteractive --dns-cloudflare --dns-cloudflare-credentials /home/{{ansible_user}}/.secrets/cloudflare-credentials.ini -d {{item}},*.{{item}}
+  with_items: "{{ letsencrypt }}"
+  when: not stat_letsencrypt_result.stat.exists
+
+- name: setup renew cronjob
+  cron:
+    name: letsencrypt
+    special_time: daily
+    job: certbot renew
+  when: not stat_letsencrypt_result.stat.exists
+
+- name: upload nginx site config
+  template: src=nginx-sites/{{ item }}.conf dest=/etc/nginx/sites-enabled/{{ item | basename }}.conf
+  notify: restart nginx
+  with_items: "{{ letsencrypt }}"
