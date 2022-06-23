@@ -8,41 +8,48 @@
             - ms-python.python
             - ms-python.vscode-pylance
             - ms-toolsai.jupyter
+            - ms-toolsai.jupyter-keymap
+            - ms-toolsai.jupyter-renderers
+            - ms-azuretools.vscode-docker
+
             - golang.go
-            - matklad.rust-analyzer
+            - rust-lang.rust-analyzer
             - scala-lang.scala
             - octref.vetur
             - karunamurti.tera
-
             - rebornix.ruby
             - wingrunr21.vscode-ruby
             - castwide.solargraph
             - kaiwood.endwise
             - aliariff.vscode-erb-beautify
             - rayhanw.erb-helpers
+            - zxh404.vscode-proto3
+            - darkriszty.markdown-table-prettify
+            - njqdev.vscode-python-typehint
 
             - redhat.vscode-yaml
             - marp-team.marp-vscode
             - aaron-bond.better-comments
 
             - GitHub.copilot
-            - github.github-vscode-theme
+            - GitHub.github-vscode-theme
             - vscode-icons-team.vscode-icons
 
             - mtxr.sqltools
             - mtxr.sqltools-driver-pg
             - mtxr.sqltools-driver-mysql
-
             - formulahendry.auto-rename-tag
             - pnp.polacode
             - mushan.vscode-paste-image
             - bradlc.vscode-tailwindcss
+            - rangav.vscode-thunder-client
 
           visual_studio_code_settings_overwrite: yes
           visual_studio_code_settings:
             {
               "editor.fontSize": 16,
               "editor.rulers": [80, 120],
+              "editor.guides.bracketPairs": "active",
               "editor.bracketPairColorization.enabled": true,
               "terminal.integrated.fontFamily": "MesloLGS NF",
               "workbench.colorTheme": "GitHub Dark Dimmed",
@@ -54,6 +61,7 @@
               "solargraph.formatting": true,
               "vim.disableExtension": true,
               "pasteImage.path": "${currentFileDir}/images",
+              "thunder-client.saveToWorkspace": true,
 
               "python.formatting.provider": "black",
               "python.formatting.blackArgs": ["--line-length=80"],
