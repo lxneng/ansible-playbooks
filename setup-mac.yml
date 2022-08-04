@@ -1,0 +1,23 @@
+- hosts: localhost
+  tasks:
+    - name: Install homebrew app
+      homebrew:
+        name: "{{item}}"
+        state: present
+      loop:
+        - git
+        - tig
+        - htop
+        - bat
+        - fzf
+        - zoxide
+        - overmind
+        - yq
+        - jq
+
+    - name: Install homebrew casks Apps
+      homebrew_cask:
+        name: "{{item}}"
+        state: present
+      loop:
+        - visual-studio-code
