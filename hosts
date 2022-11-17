@@ -2,6 +2,7 @@ seoul ansible_user=ubuntu
 tokyo ansible_user=eric
 tars ansible_user=eric
 localhost ansible_user=eric
+kimchi ansible_user=admin
 
 [all:vars]
 ansible_python_interpreter='/usr/bin/env python3'
