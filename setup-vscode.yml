@@ -42,6 +42,7 @@
             - mushan.vscode-paste-image
             - bradlc.vscode-tailwindcss
             - rangav.vscode-thunder-client
+            - RandomFractalsInc.vscode-data-preview
 
           visual_studio_code_settings_overwrite: yes
           visual_studio_code_settings:
