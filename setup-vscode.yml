@@ -43,10 +43,14 @@
             - bradlc.vscode-tailwindcss
             - rangav.vscode-thunder-client
             - RandomFractalsInc.vscode-data-preview
+            - amazonwebservices.aws-toolkit-vscode
 
           visual_studio_code_settings_overwrite: yes
           visual_studio_code_settings:
             {
+              "files.exclude": {
+                "**/__pycache__": true
+              },
               "editor.fontSize": 16,
               "editor.rulers": [80, 120],
               "editor.guides.bracketPairs": "active",
